@@ -1,13 +1,28 @@
-var http = require('http');
+const Connection = require('tedious').Connection;
+const Request = require('tedious').Request;
 
-var server = http.createServer(function(request, response) {
+const config = {
+  userName: 'zllamo',
+  password: 'walton!3',
+  server: 'zdb1.database.windows.net',
+  options: {
+    database: 'zdb',
+    encrypt: true
+  }
+};
 
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello World!");
+var connection = new Connection(config);
 
-});
-
-var port = process.env.PORT || 1337;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) 
+   {
+     if (err) 
+       {
+          console.log(err)
+       }
+    else
+       {
+           console.log("Connected!")
+       }
+   }
+ );
