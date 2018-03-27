@@ -1,13 +1,12 @@
-var http = require('http');
+var mysql = require('mysql');
 
-var server = http.createServer(function(request, response) {
-
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello World!");
-
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root"
 });
 
-var port = process.env.PORT || 1337;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
